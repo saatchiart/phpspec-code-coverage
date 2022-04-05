@@ -1,7 +1,8 @@
 {
     "name": "friends-of-phpspec/phpspec-code-coverage",
-    "type": "library",
     "description": "Generate Code Coverage reports for PhpSpec tests",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "phpspec",
         "coverage",
@@ -11,8 +12,6 @@
         "code-coverage",
         "spec"
     ],
-    "homepage": "https://github.com/friends-of-phpspec/phpspec-code-coverage",
-    "license": "MIT",
     "authors": [
         {
             "name": "ek9",
@@ -37,27 +36,29 @@
             "homepage": "https://github.com/jaylinski"
         }
     ],
+    "homepage": "https://github.com/friends-of-phpspec/phpspec-code-coverage",
+    "support": {
+        "issues": "https://github.com/friends-of-phpspec/phpspec-code-coverage/issues",
+        "source": "https://github.com/friends-of-phpspec/phpspec-code-coverage",
+        "docs": "https://github.com/friends-of-phpspec/phpspec-code-coverage#phpspec-code-coverage"
+    },
     "require": {
         "php": ">= 7.3",
         "phpspec/phpspec": "^6.0 || ^7.0",
         "phpunit/php-code-coverage": "^9.0"
     },
+    "require-dev": {
+        "phpstan/phpstan": "^1.5",
+        "friendsofphp/php-cs-fixer": "^3.4"
+    },
     "conflict": {
         "sebastian/comparator": "< 2.0"
-    },
-    "require-dev": {
-        "drupol/php-conventions": "^3.0",
-        "vimeo/psalm": "^4.7"
     },
     "suggest": {
         "ext-pcov": "Install PCov extension to generate code coverage.",
         "ext-xdebug": "Install Xdebug to generate phpspec code coverage."
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "6.x-dev"
-        }
-    },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "FriendsOfPhpSpec\\PhpSpec\\CodeCoverage\\": "src/"
@@ -66,13 +67,14 @@
             "src/bootstrap.php"
         ]
     },
-    "minimum-stability": "stable",
     "scripts": {
-        "grumphp": "./vendor/bin/grumphp run"
+        "analyse": "phpstan analyse --level 8 src",
+        "lint": "php-cs-fixer fix --dry-run src && php-cs-fixer fix --dry-run spec",
+        "test": "phpspec run"
     },
-    "support": {
-        "issues": "https://github.com/friends-of-phpspec/phpspec-code-coverage/issues",
-        "source": "https://github.com/friends-of-phpspec/phpspec-code-coverage",
-        "docs": "https://github.com/friends-of-phpspec/phpspec-code-coverage#phpspec-code-coverage"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "6.x-dev"
+        }
     }
 }

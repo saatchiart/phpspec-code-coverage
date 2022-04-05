@@ -51,7 +51,7 @@ extensions:
 This will sufficient to enable Code Coverage generation by using defaults
 provided by the extension. This extension supports various [configuration
 options](#Options). For a fully annotated example configuration
-file check [Configuration section](#Configuration).
+file check [configuration section](#Configuration).
 
 ## Usage
 
