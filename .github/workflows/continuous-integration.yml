@@ -13,7 +13,7 @@ jobs:
       fail-fast: true
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        php-versions: ['7.3', '7.4', '8.0', '8.1']
+        php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2']
         composer-versions: ['composer:v1', 'composer:v2']
         dependencies: ["lowest", "highest"]
 
@@ -56,3 +56,5 @@ jobs:
           composer run analyse
           composer run lint
           composer run test
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: true
