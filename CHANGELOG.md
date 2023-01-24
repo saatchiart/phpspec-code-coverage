@@ -6,6 +6,12 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.2.0] - 2022-01-24
+
+- Support PHP 8.1
+- Add ability to generate report in cobertura format (cf #49)
+- Remove GrumPHP usage.
+
 ## [6.1.0] - 2021-03-30
 
 - Added support for directory filtering #44
@@ -13,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [6.0.0] - 2020-11-28
 
 - Support PHP 8
-- Extension requires PHP7.3+ (due to `phpunit/php-code-coverage` v9 depending on it) #36   
+- Extension requires PHP7.3+ (due to `phpunit/php-code-coverage` v9 depending on it) #36
   Version 5.x will still be maintained
 
 ## [5.0.0] - 2020-11-16
