@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    reportUnmatchedIgnoredErrors: false
+    paths:
+        - src
+    ignoreErrors:
+        # phpstan has hard time to check whenever we are using PHPUnit 10 or PHPUnit 9
+        -
+            message: '#Class SebastianBergmann\\CodeCoverage\\Report\\Text constructor invoked with 4 parameters, 1-3 required\.#'
+            path: ./src/CodeCoverageExtension.php
