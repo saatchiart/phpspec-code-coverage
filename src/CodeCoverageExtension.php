@@ -159,14 +159,9 @@ class CodeCoverageExtension implements Extension
         });
 
         $container->define('event_dispatcher.listeners.code_coverage', static function (ServiceContainer $container) {
-            $skipCoverage = false;
-
             /** @var InputInterface $input */
             $input = $container->get('console.input');
-
-            if ($input->hasOption('no-coverage') && $input->getOption('no-coverage')) {
-                $skipCoverage = true;
-            }
+            $skipCoverage = $input->hasOption('no-coverage') && $input->getOption('no-coverage');
 
             /** @var ConsoleIO $consoleIO */
             $consoleIO = $container->get('console.io');
