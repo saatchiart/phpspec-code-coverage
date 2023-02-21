@@ -70,7 +70,8 @@
     "scripts": {
         "analyse": "phpstan analyse --level 8 src",
         "lint": "php-cs-fixer fix --dry-run src && php-cs-fixer fix --dry-run spec",
-        "test": "phpspec run"
+        "test": "phpspec run --no-coverage",
+        "test-coverage": "phpspec run"
     },
     "extra": {
         "branch-alias": {
