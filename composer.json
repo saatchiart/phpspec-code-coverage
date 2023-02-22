@@ -45,7 +45,7 @@
     "require": {
         "php": ">= 7.3",
         "phpspec/phpspec": "^6.0 || ^7.0",
-        "phpunit/php-code-coverage": "^9.0"
+        "phpunit/php-code-coverage": "^9.2 || ^10.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.5",
@@ -68,9 +68,10 @@
         ]
     },
     "scripts": {
-        "analyse": "phpstan analyse --level 8 src",
+        "analyse": "phpstan analyse",
         "lint": "php-cs-fixer fix --dry-run src && php-cs-fixer fix --dry-run spec",
-        "test": "phpspec run"
+        "test": "phpspec run --no-coverage",
+        "test-coverage": "phpspec run"
     },
     "extra": {
         "branch-alias": {

@@ -24,6 +24,7 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\Report;
+use SebastianBergmann\CodeCoverage\Report\Thresholds;
 use SebastianBergmann\CodeCoverage\Version;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -119,12 +120,18 @@ class CodeCoverageExtension implements Extension
 
                         break;
                     case 'text':
-                        $reports['text'] = new Report\Text(
-                            $options['lower_upper_bound'],
-                            $options['high_lower_bound'],
-                            $options['show_uncovered_files'],
-                            $options['show_only_summary']
-                        );
+                        $reports['text'] = version_compare(Version::id(), '10.0.0', '>=') && class_exists(Thresholds::class)
+                            ? new Report\Text(
+                                Thresholds::from($options['lower_upper_bound'], $options['high_lower_bound']),
+                                $options['show_uncovered_files'],
+                                $options['show_only_summary']
+                            )
+                            : new Report\Text(
+                                $options['lower_upper_bound'],
+                                $options['high_lower_bound'],
+                                $options['show_uncovered_files'],
+                                $options['show_only_summary']
+                            );
 
                         break;
                     case 'xml':
@@ -152,14 +159,9 @@ class CodeCoverageExtension implements Extension
         });
 
         $container->define('event_dispatcher.listeners.code_coverage', static function (ServiceContainer $container) {
-            $skipCoverage = false;
-
             /** @var InputInterface $input */
             $input = $container->get('console.input');
-
-            if ($input->hasOption('no-coverage') && $input->getOption('no-coverage')) {
-                $skipCoverage = true;
-            }
+            $skipCoverage = $input->hasOption('no-coverage') && $input->getOption('no-coverage');
 
             /** @var ConsoleIO $consoleIO */
             $consoleIO = $container->get('console.io');
