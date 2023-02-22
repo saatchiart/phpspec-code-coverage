@@ -6,6 +6,15 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.3.0] - 2023-02-22
+
+- Support PHP 8.2
+- Compatibility with `phpunit/php-code-coverage` v10
+- Fix version constraint with `phpunit/php-code-coverage`, we aren't compatible
+  with version under v9.2…
+- Fix CI matrix to test composer dependencies on lowest possible version and
+  highest possible version to ensure valid constraints…
+
 ## [6.2.0] - 2022-01-24
 
 - Support PHP 8.1
