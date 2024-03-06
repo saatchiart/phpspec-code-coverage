@@ -4,7 +4,7 @@
  [![GitHub Workflow Status](https://github.com/friends-of-phpspec/phpspec-code-coverage/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/friends-of-phpspec/phpspec-code-coverage/actions)
  [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/friends-of-phpspec/phpspec-code-coverage/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/friends-of-phpspec/phpspec-code-coverage/?branch=master)
  [![License](https://img.shields.io/packagist/l/friends-of-phpspec/phpspec-code-coverage.svg?style=flat-square)](https://packagist.org/packages/friends-of-phpspec/phpspec-code-coverage)
- 
+
 # phpspec-code-coverage
 
 [phpspec-code-coverage][0] is a [PhpSpec][2] extension that generates Code
@@ -22,14 +22,14 @@ used as a single metric defining how good your tests are.
 - PHP 7+ (for [PhpSpec][2] v4+) or PHP 5.6+ (for [PhpSpec][2] v3)
 - [Xdebug][3], [phpdbg][4] or [pcov][6] extension enabled (PHP 7+ is required for code
   generation to work with [phpdbg][4]).
-  
+
 ## Compatibility
 
-| phpspec-code-coverage | PHP      | phpspec                    | phpunit                    |
-|-----------------------|----------|----------------------------|----------------------------|
-| 4.x                   | `^7.1`   | `^4.2 \|\| ^5.0 \|\| ^6.0` | `^5.0 \|\| ^6.0 \|\| ^7.0` |
-| 5.x                   | `>= 7.2` | `^5.0 \|\| ^6.0 \|\| ^7.0` | `^6.0 \|\| ^7.0 \|\| ^8.0` |
-| 6.x                   | `>= 7.3` | `^6.0 \|\| ^7.0`           | `^9.0`                     |
+| phpspec-code-coverage | PHP      | phpspec                    | phpunit                      |
+|-----------------------|----------|----------------------------|------------------------------|
+| 4.x                   | `^7.1`   | `^4.2 \|\| ^5.0 \|\| ^6.0` | `^5.0 \|\| ^6.0 \|\| ^7.0`   |
+| 5.x                   | `>= 7.2` | `^5.0 \|\| ^6.0 \|\| ^7.0` | `^6.0 \|\| ^7.0 \|\| ^8.0`   |
+| 6.x                   | `>= 7.3` | `^6.0 \|\| ^7.0`           | `^9.2 \|\| ^10.0 \|\| ^11.0` |
 
 ## Change Log
 
@@ -171,11 +171,11 @@ extensions:
 * `high_lower_bound` (optional) sets high lower bound for code coverage
   (default `70`)
 * `whitelist` takes an array of directories to whitelist (default: `lib`,
-  `src`). The array can be made more specific if an associative array is 
+  `src`). The array can be made more specific if an associative array is
   given with the following keys (`directory`, `prefix`, `suffix`)
 * `whitelist_files` takes an array of files to whitelist (default: none).
 * `blacklist` takes an array of directories to blacklist (default: `test,
-  vendor, spec`). The array can be made more specific if an associative 
+  vendor, spec`). The array can be made more specific if an associative
   array is given with the following keys (`directory`, `prefix`, `suffix`)
 * `blacklist_files` takes an array of files to blacklist
 
