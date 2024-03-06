@@ -21,6 +21,7 @@ use PhpSpec\Event\SuiteEvent;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
 
 use function gettype;
 use function is_array;
@@ -153,12 +154,16 @@ class CodeCoverageListener implements EventSubscriberInterface
         foreach ($this->options['whitelist'] as $option) {
             $settings = $this->filterDirectoryParams($option);
 
-            $filter->includeDirectory($settings['directory'], $settings['suffix'], $settings['prefix']);
+            foreach ((new FileIteratorFacade())->getFilesAsArray($settings['directory'], $settings['suffix'], $settings['prefix']) as $file) {
+                $filter->includeFile($file);
+            }
         }
 
         foreach ($this->options['blacklist'] as $option) {
             $settings = $this->filterDirectoryParams($option);
-
+            foreach ((new FileIteratorFacade)->getFilesAsArray($directory, $suffix, $prefix) as $file) {
+                $filter->excludeFile($file);
+            }
             $filter->excludeDirectory($settings['directory'], $settings['suffix'], $settings['prefix']);
         }
 
