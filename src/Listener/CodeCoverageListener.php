@@ -20,8 +20,8 @@ use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use function gettype;
 use function is_array;
@@ -139,10 +139,6 @@ class CodeCoverageListener implements EventSubscriberInterface
         $this->coverage->start($name);
     }
 
-    /**
-     * Note: We use array_map() instead of array_walk() because the latter expects
-     * the callback to take the value as the first and the index as the seconds parameter.
-     */
     public function beforeSuite(SuiteEvent $event): void
     {
         if ($this->skipCoverage) {
@@ -151,26 +147,36 @@ class CodeCoverageListener implements EventSubscriberInterface
 
         $filter = $this->coverage->filter();
 
-        foreach ($this->options['whitelist'] as $option) {
-            $settings = $this->filterDirectoryParams($option);
-
-            foreach ((new FileIteratorFacade())->getFilesAsArray($settings['directory'], $settings['suffix'], $settings['prefix']) as $file) {
-                $filter->includeFile($file);
-            }
-        }
-
+        // We compute the list of file / folder to be excluded
+        // If the blacklist contains suffixes and/or prefixes, we extract an
+        // exhaustive list of files that match to be added in the excluded list.
+        $excludes = $this->options['blacklist_files'];
         foreach ($this->options['blacklist'] as $option) {
             $settings = $this->filterDirectoryParams($option);
-            foreach ((new FileIteratorFacade)->getFilesAsArray($directory, $suffix, $prefix) as $file) {
-                $filter->excludeFile($file);
+            if (!empty($settings['suffix']) || !empty($settings['prefix'])) {
+                $excludes = $excludes + (new FileIteratorFacade())->getFilesAsArray(
+                    $settings['directory'],
+                    $settings['suffix'],
+                    $settings['prefix']
+                );
+            } else {
+                $excludes[] = $settings['directory'];
             }
-            $filter->excludeDirectory($settings['directory'], $settings['suffix'], $settings['prefix']);
         }
 
-        $filter->includeFiles($this->options['whitelist_files']);
+        foreach ($this->options['whitelist'] as $option) {
+            $settings = $this->filterDirectoryParams($option);
+            $fileIterator = (new FileIteratorFacade())->getFilesAsArray(
+                [$settings['directory']] + $this->options['whitelist_files'],
+                $settings['suffix'],
+                $settings['prefix'],
+                // We exclude the files from the previously built list.
+                $excludes
+            );
 
-        foreach ($this->options['blacklist_files'] as $option) {
-            $filter->excludeFile($option);
+            foreach ($fileIterator as $file) {
+                $filter->includeFile($file);
+            }
         }
     }
 
@@ -198,7 +204,7 @@ class CodeCoverageListener implements EventSubscriberInterface
     /**
      * @param array<string, string>|string $option
      *
-     * @return array{directory:string, prefix:string, suffix:string}
+     * @return array{directory:non-empty-string, prefix:string, suffix:string}
      */
     protected function filterDirectoryParams($option): array
     {
@@ -213,7 +219,7 @@ class CodeCoverageListener implements EventSubscriberInterface
             ));
         }
 
-        if (!isset($option['directory'])) {
+        if (empty($option['directory'])) {
             throw new ConfigurationException('Missing required directory path.');
         }
 
