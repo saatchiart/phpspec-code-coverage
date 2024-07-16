@@ -6,6 +6,11 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.4.0] - 2024-07-16
+
+- Support PHP 8.3
+- Compatibility with `phpunit/php-code-coverage` v11
+
 ## [6.3.0] - 2023-02-22
 
 - Support PHP 8.2
