@@ -35,12 +35,23 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     public function it_can_process_all_directory_filtering_options(SuiteEvent $event)
     {
         $this->setOptions([
+            'whitelist' => [
+                'src',
+                ['directory' => 'src', 'suffix' => 'Spec.php', 'prefix' => 'Get'],
+                ['directory' => 'src', 'suffix' => 'Test.php'],
+                ['directory' => 'src'],
+            ],
+            'whitelist_files' => 'path/to/file.php',
             'blacklist' => [
                 'src',
                 ['directory' => 'src', 'suffix' => 'Spec.php', 'prefix' => 'Get'],
                 ['directory' => 'src', 'suffix' => 'Test.php'],
                 ['directory' => 'src'],
             ],
+            'blacklist_files' => [
+                'path/to/file.php',
+                'path/to/file2.php'
+            ]
         ]);
 
         $this
