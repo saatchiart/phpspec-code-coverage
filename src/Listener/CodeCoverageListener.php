@@ -154,15 +154,19 @@ class CodeCoverageListener implements EventSubscriberInterface
         foreach ($this->options['blacklist'] as $option) {
             $settings = $this->filterDirectoryParams($option);
             if (!empty($settings['suffix']) || !empty($settings['prefix'])) {
-                $excludes = $excludes + (new FileIteratorFacade())->getFilesAsArray(
-                    $settings['directory'],
-                    $settings['suffix'],
-                    $settings['prefix']
+                $excludes = array_merge(
+                    $excludes,
+                    (new FileIteratorFacade())->getFilesAsArray(
+                        $settings['directory'],
+                        $settings['suffix'],
+                        $settings['prefix']
+                    )
                 );
             } else {
                 $excludes[] = $settings['directory'];
             }
         }
+        $excludes = array_unique($excludes);
 
         foreach ($this->options['whitelist'] as $option) {
             $settings = $this->filterDirectoryParams($option);
