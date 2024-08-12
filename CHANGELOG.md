@@ -6,6 +6,10 @@ documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.4.1] - 2024-08-12
+
+- Fix issue with the path exclude logic within the coverage listener [#62](https://github.com/friends-of-phpspec/phpspec-code-coverage/pull/62)
+
 ## [6.4.0] - 2024-07-16
 
 - Support PHP 8.3
