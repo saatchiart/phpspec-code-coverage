@@ -46,7 +46,7 @@
         {
             "type": "vcs",
             "url": "https://github.com/W0rma/phpspec.git"
-        },
+        }
     ],
     "require": {
         "php": ">= 7.3",
