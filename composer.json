@@ -42,9 +42,15 @@
         "source": "https://github.com/friends-of-phpspec/phpspec-code-coverage",
         "docs": "https://github.com/friends-of-phpspec/phpspec-code-coverage#phpspec-code-coverage"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/W0rma/phpspec.git"
+        },
+    ],
     "require": {
         "php": ">= 7.3",
-        "phpspec/phpspec": "^6.0 || ^7.0",
+        "phpspec/phpspec": "dev-php84",
         "phpunit/php-code-coverage": "^9.2 || ^10.0 || ^11.0",
         "phpunit/php-file-iterator": "^3.0 || ^4.0 || ^5.0"
     },
