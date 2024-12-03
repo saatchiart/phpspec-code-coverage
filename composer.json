@@ -45,12 +45,12 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/W0rma/phpspec.git"
+            "url": "git@github.com:saatchiart/phpspec.git"
         }
     ],
     "require": {
         "php": ">= 7.3",
-        "phpspec/phpspec": "dev-php84",
+        "phpspec/phpspec": "dev-main",
         "phpunit/php-code-coverage": "^9.2 || ^10.0 || ^11.0",
         "phpunit/php-file-iterator": "^3.0 || ^4.0 || ^5.0"
     },
